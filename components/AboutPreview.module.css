@@ -1,0 +1,138 @@
+.section {
+  --ink: #183b61;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: clamp(40px, 5vw, 80px);
+  padding-block: clamp(56px, 6vw, 88px);
+}
+
+/* Visual — real product packs on a soft brand panel */
+.visual {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 28px;
+  background: radial-gradient(ellipse at 50% 38%, #fff 0%, #eaf6fb 55%, #dceff8 100%);
+  isolation: isolate;
+  overflow: hidden;
+}
+.halo {
+  position: absolute;
+  left: 50%;
+  top: 10%;
+  width: 68%;
+  aspect-ratio: 1;
+  translate: -50% 0;
+  border-radius: 50%;
+  border: 1px solid #ffffffe6;
+  box-shadow: 0 0 0 26px #ffffff40, 0 0 0 54px #ffffff26;
+}
+.podium {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 10%;
+  height: 15%;
+  border-radius: 50%;
+  background: linear-gradient(#fff 0%, #f7fcff 45%, #cfe6ef 50%, #e6f4f9 92%);
+  box-shadow: 0 26px 40px -24px rgba(21, 87, 137, 0.35);
+}
+.pack { position: absolute; aspect-ratio: 1; mix-blend-mode: multiply; }
+.packImage { object-fit: contain; }
+.pack0 { width: 60%; left: 20%; bottom: 27%; z-index: 1; }
+.pack1 { width: 54%; left: -2%; bottom: 7%; z-index: 2; }
+.pack2 { width: 52%; right: -2%; bottom: 6%; z-index: 2; }
+
+.badge {
+  position: absolute;
+  z-index: 3;
+  left: clamp(16px, 3vw, 28px);
+  top: clamp(16px, 3vw, 28px);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 12px 18px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 14px 30px -18px rgba(17, 74, 120, 0.45);
+}
+.badge strong { color: var(--brand-primary); font-size: 18px; font-weight: 750; letter-spacing: -0.02em; }
+.badge span { display: flex; align-items: center; gap: 5px; color: var(--text-secondary); font-size: 12.5px; font-weight: 500; }
+
+/* Copy */
+.content { display: flex; flex-direction: column; align-items: flex-start; }
+.section .title {
+  margin: 12px 0 18px;
+  color: var(--ink);
+  font-size: clamp(30px, 3vw, 42px);
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+}
+.title span { display: block; color: var(--brand-primary); }
+.section .lead { max-width: 600px; margin: 0; color: var(--text-secondary); font-size: 16px; line-height: 1.7; }
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  width: 100%;
+  margin: 32px 0 34px;
+  padding: 0;
+  list-style: none;
+}
+.features li {
+  padding: 20px 18px;
+  border-radius: 18px;
+  background: #f3fafd;
+  border: 1px solid rgba(8, 93, 164, 0.07);
+  transition: background 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+}
+.features li:hover { background: #fff; box-shadow: 0 16px 34px -22px rgba(17, 74, 120, 0.4); transform: translateY(-2px); }
+.featureIcon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 14px;
+  border-radius: 14px;
+  color: #fff;
+  background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+}
+.section .features h3 { margin: 0; color: var(--ink); font-size: 15.5px; font-weight: 700; }
+.section .features p { margin: 5px 0 0; color: var(--text-secondary); font-size: 13.5px; line-height: 1.5; }
+
+.cta {
+  min-height: 50px;
+  padding-inline: 28px;
+  gap: 10px;
+  font-size: 15px;
+  background: linear-gradient(100deg, var(--brand-primary), #1f98d6);
+  transition: background 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+}
+.cta:hover {
+  background: linear-gradient(100deg, var(--brand-primary-dark), var(--brand-primary));
+  box-shadow: 0 8px 20px -10px rgba(0, 83, 156, 0.55);
+  transform: translateY(-1px);
+}
+.cta svg { transition: transform 200ms ease; }
+.cta:hover svg { transform: translateX(3px); }
+
+@media (max-width: 1023px) {
+  .section { grid-template-columns: 1fr; }
+  .visual { order: 2; width: min(100%, 560px); justify-self: center; }
+  .content { order: 1; }
+  .section .lead { max-width: none; }
+}
+@media (max-width: 639px) {
+  .section { gap: 32px; }
+  .features { grid-template-columns: 1fr; gap: 10px; margin-block: 26px 28px; }
+  .features li { display: grid; grid-template-columns: auto 1fr; column-gap: 14px; align-items: center; padding: 14px 16px; }
+  .featureIcon { grid-row: span 2; margin: 0; }
+  .section .features p { margin-top: 2px; }
+  .cta { width: 100%; }
+  .badge { padding: 10px 14px; }
+  .badge strong { font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .features li, .cta, .cta svg { transition: none; }
+}

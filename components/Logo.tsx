@@ -1,13 +1,13 @@
 import Image from "next/image";
 
-export function Logo({ className = "" }: { className?: string }) {
+export function Logo({ className = "", preload = false }: { className?: string; preload?: boolean }) {
   return (
     <Image
       src="/images/logo/udy-healthcare-logo.webp"
       alt="UDY Healthcare"
       width={928}
       height={363}
-      priority
+      preload={preload}
       className={`h-9 w-auto ${className}`}
     />
   );

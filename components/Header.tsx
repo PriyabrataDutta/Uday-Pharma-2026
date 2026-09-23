@@ -1,25 +1,45 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { Logo } from "./Logo";
 import { Button } from "./Button";
 import { NavLinks } from "./NavLinks";
 import { MobileNav } from "./MobileNav";
+import styles from "./Header.module.css";
 
 export function Header() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-white/95 backdrop-blur">
-      <div className="container-page flex h-20 items-center justify-between">
-        <Link href="/" aria-label="UDY Healthcare — Home" className="shrink-0">
-          <Logo />
+    <header className={`${styles.header} ${scrolled ? styles.scrolled : ""}`}>
+      <div className={styles.inner}>
+        <Link href="/" aria-label="UDY Healthcare — Home" className={styles.logoLink}>
+          <Logo preload className={styles.logo} />
         </Link>
 
-        <nav aria-label="Primary" className="hidden lg:block">
+        <nav aria-label="Primary" className={styles.desktopNav}>
           <NavLinks />
         </nav>
 
-        <div className="hidden shrink-0 lg:block">
-          <Button href="/contact" variant="primary">
+        <div className={styles.actions}>
+          <Button href="/contact" variant="primary" className={styles.cta}>
             Enquire Now
+            <ArrowRight size={18} aria-hidden="true" />
           </Button>
+          <p className={styles.tagline}>
+            Healthier People
+            <br />
+            Brighter Tomorrows
+          </p>
         </div>
 
         <MobileNav />
