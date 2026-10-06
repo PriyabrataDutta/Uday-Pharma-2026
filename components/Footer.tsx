@@ -41,7 +41,7 @@ export function Footer() {
             {segments.map((segment) => (
               <li key={segment.slug}>
                 <Link
-                  href={`/products?category=${segment.slug === "specialized" ? "all" : segment.slug === "gynecology" ? "womens-healthcare" : segment.slug}`}
+                  href={`/products?category=${segment.slug}`}
                   className="text-sm text-text-secondary transition-colors hover:text-brand-primary"
                 >
                   {segment.name}

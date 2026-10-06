@@ -1,0 +1,165 @@
+.section {
+  position: relative;
+  padding: 88px 0;
+  background: linear-gradient(180deg, #ffffff 0%, #f1f7fc 50%, #e8f3fa 100%);
+  overflow: hidden;
+}
+
+.section::before {
+  content: "";
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  translate: -50% -50%;
+  width: 75%;
+  height: 220px;
+  background: radial-gradient(closest-side, rgba(0, 126, 196, 0.08), transparent);
+  pointer-events: none;
+}
+
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 16px;
+  position: relative;
+  list-style: none;
+  padding: 16px 0 8px;
+}
+
+.trackLine {
+  position: absolute;
+  top: 44px;
+  left: 5%;
+  right: 5%;
+  height: 3px;
+  background: linear-gradient(90deg, #cde4f2 0%, var(--brand-primary) 50%, #55c8c8 100%);
+  z-index: 0;
+  border-radius: 999px;
+  opacity: 0.55;
+}
+
+.stepItem {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stepCard {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  padding: 18px 14px 18px;
+  border-radius: 20px;
+  background: #ffffff;
+  border: 1px solid #e2edf5;
+  box-shadow: 0 2px 8px #0b3b6108;
+  transition: all 300ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  height: 100%;
+}
+
+.stepItem:hover .stepCard {
+  transform: translateY(-6px);
+  border-color: #bce1f5;
+  box-shadow: 0 8px 24px -6px #0b3b611e;
+}
+
+.nodeWrapper {
+  position: relative;
+  display: grid;
+  place-items: center;
+  margin-bottom: 2px;
+}
+
+.stepNumber {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  z-index: 2;
+  padding: 2px 7px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  background: var(--brand-primary);
+  box-shadow: 0 2px 6px #007ec435;
+}
+
+.iconNode {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  color: var(--brand-primary);
+  background: linear-gradient(135deg, #ffffff 0%, #f0f7fc 100%);
+  border: 1.5px solid #d4e8f5;
+  box-shadow: 0 4px 12px #0b3b610c;
+  transition: all 300ms ease;
+}
+
+.stepItem:hover .iconNode {
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--brand-primary) 0%, #006aa8 100%);
+  border-color: var(--brand-primary);
+  transform: scale(1.08);
+  box-shadow: 0 6px 18px #007ec435;
+}
+
+.stepTitle {
+  font-size: 13.5px;
+  font-weight: 750;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: #0b2e4c;
+}
+
+.stepDesc {
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: #64748b;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1200px) {
+  .timeline {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .trackLine {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .timeline {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .timeline {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .stepCard {
+    flex-direction: row;
+    text-align: left;
+    padding: 14px 16px;
+    align-items: center;
+  }
+  .nodeWrapper {
+    flex-shrink: 0;
+    margin-bottom: 0;
+  }
+}

@@ -1,16 +1,53 @@
 export type ProcessStep = {
+  step: string;
   label: string;
+  description: string;
   icon: "Lightbulb" | "Factory" | "PackageCheck" | "Megaphone" | "Truck" | "Building2" | "Users";
 };
 
 export const processSteps: ProcessStep[] = [
-  { label: "Product Planning & Development", icon: "Lightbulb" },
-  { label: "Third-Party Manufacturing", icon: "Factory" },
-  { label: "Quality & Packaging", icon: "PackageCheck" },
-  { label: "Marketing", icon: "Megaphone" },
-  { label: "Distribution", icon: "Truck" },
-  { label: "Pharmacies / Hospitals", icon: "Building2" },
-  { label: "Patients", icon: "Users" },
+  {
+    step: "01",
+    label: "Product Planning",
+    description: "Therapeutic demand analysis & formulation design.",
+    icon: "Lightbulb",
+  },
+  {
+    step: "02",
+    label: "Manufacturing",
+    description: "Partnering with certified WHO-GMP facilities.",
+    icon: "Factory",
+  },
+  {
+    step: "03",
+    label: "Quality Control",
+    description: "Rigorous quality checks & protective packaging.",
+    icon: "PackageCheck",
+  },
+  {
+    step: "04",
+    label: "Marketing",
+    description: "Doctor detailing & strategic medical education.",
+    icon: "Megaphone",
+  },
+  {
+    step: "05",
+    label: "Distribution",
+    description: "Reliable, temperature-monitored logistics network.",
+    icon: "Truck",
+  },
+  {
+    step: "06",
+    label: "Healthcare Partners",
+    description: "Supplying verified pharmacies & hospitals.",
+    icon: "Building2",
+  },
+  {
+    step: "07",
+    label: "Patient Outcomes",
+    description: "Delivering trusted therapeutic care to families.",
+    icon: "Users",
+  },
 ];
 
 export type ValueItem = {

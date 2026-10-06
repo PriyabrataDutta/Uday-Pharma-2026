@@ -152,12 +152,6 @@ body > main, body > footer { width: 100%; max-width: 1280px; margin-inline: auto
 .segment-content h3 { font-size: 14px; font-weight: 750; margin: 4px 0 7px; }
 .segment-content p { font-size: 12px; }
 .segment-arrow { position: absolute; right: 12px; bottom: 10px; padding: 4px; border: 1px solid #e0f1f8; border-radius: 50%; color: #0086cf; }
-.home-products article { text-align: center; border-radius: 12px; }
-.home-products article > div:first-child { background: white; height: 185px; aspect-ratio: auto; }
-.home-products article img { padding: 0; }
-.home-products article > div:last-child { padding: 0 12px 16px; gap: 5px; }
-.home-products article h3 { font-size: 14px; }
-.home-products article p { font-size: 12px; }
 .home-process { margin-block: 12px 0; padding-block: 24px; background: linear-gradient(105deg,#e8f9ff,#eafaff); border-radius: 0 0 20px 20px; }
 .home-process .container-page { gap: 24px; }
 .home-process ol li > span:last-child { font-size: 12px; }
@@ -205,10 +199,6 @@ a:focus-visible, button:focus-visible { outline: 3px solid #1aaec4; outline-offs
   .segment-content { flex-direction: column; gap: 5px; padding: 12px 12px 35px; min-height: 165px; }
   .segment-content h3 { font-size: 13px; }
   .segment-content p { font-size: 11px; }
-  .home-products .grid { grid-auto-columns: 85%; grid-auto-flow: column; grid-template-columns: none; overflow-x: auto; scroll-snap-type: x mandatory; padding: 8px 6px 20px; }
-  .home-products article { scroll-snap-align: center; }
-  .home-products article h3 { font-size: 17px; }
-  .home-products article p { font-size: 12px; }
   .home-process ol { grid-template-columns: repeat(2,1fr); gap: 25px; }
   .home-process ol li:last-child { grid-column: 1 / -1; }
   .home-gallery .grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
@@ -230,10 +220,9 @@ a:focus-visible, button:focus-visible { outline: 3px solid #1aaec4; outline-offs
 }
 @media (max-width: 639px) {
   .home-segments .segment-card > .reference-art { height: 100px; }
-  .home-products article > div:first-child { height: 205px; }
   .home-gallery .grid > button { height: 100px; }
 }
 
-/* Campaign banner spans the viewport; deeper homepage sections retain 1280px. */
-body > main:has(.home-page) { max-width: none; }
-.home-page > :not(:first-child) { max-width: 1280px; margin-inline: auto; }
+/* Homepage sections span 100% viewport width; inner content uses container-page max-width. */
+body > main:has(.home-page) { max-width: none; width: 100%; }
+.home-page > * { width: 100%; }

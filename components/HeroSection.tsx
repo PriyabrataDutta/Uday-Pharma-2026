@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
-import Image from "next/image";
+import { getImageProps } from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import styles from "./HeroSection.module.css";
@@ -9,20 +9,37 @@ import styles from "./HeroSection.module.css";
 const slides = [
   {
     src: "/images/banners/udy-healthcare-banner-specialized-healthcare.webp",
+    mobileSrc: "/images/banners/udy-healthcare-mobile-banner-specialized-healthcare.webp",
     alt: "Specialized Healthcare Solutions for Everyday Clinical Needs — UDY Healthcare respiratory, pediatric and general healthcare products including Budexol, Flutobrin, Mucolox, Mucolox-LS, Mupibex and Ovundra",
     href: "/products", label: "Specialized healthcare portfolio",
   },
   {
     src: "/images/banners/udy-healthcare-banner-pediatric-range.webp",
+    mobileSrc: "/images/banners/udy-healthcare-mobile-banner-pediatric-range.webp",
     alt: "Pediatric Healthcare Range for Growing Needs — UDY Healthcare pediatric products including Amoxy XL, EMFA-DS, Fevibru and ReutiBec",
     href: "/products?category=pediatric", label: "Pediatric range",
   },
   {
     src: "/images/banners/udy-healthcare-banner-trusted-brands.webp",
+    mobileSrc: "/images/banners/udy-healthcare-mobile-banner-trusted-brands.webp",
     alt: "Building Trusted Healthcare Brands for Better Care — UDY Healthcare products across pediatric, gynecology, general healthcare and specialized segments",
     href: "/products", label: "Trusted healthcare brands",
   },
 ];
+
+function BannerImage({ slide, eager }: { slide: (typeof slides)[number]; eager: boolean }) {
+  const common = { alt: slide.alt, fill: true, sizes: "100vw", loading: eager ? "eager" : "lazy", fetchPriority: eager ? "high" : undefined } as const;
+  const { props: { srcSet: mobile } } = getImageProps({ ...common, src: slide.mobileSrc });
+  const { props } = getImageProps({ ...common, src: slide.src });
+  return (
+    <picture>
+      <source media="(max-width: 767px)" srcSet={mobile} />
+      {/* eslint-disable-next-line jsx-a11y/alt-text */}
+      <img {...props} className={styles.image} />
+    </picture>
+  );
+}
+
 const subscribeMotion = (callback: () => void) => {
   const query = window.matchMedia("(prefers-reduced-motion: reduce)");
   query.addEventListener("change", callback);
@@ -72,8 +89,7 @@ export function HeroSection() {
           <Link key={slide.src} href={slide.href} className={`${styles.slide} ${active === index ? styles.active : ""}`}
             role="group" aria-roledescription="slide" aria-label={`${index + 1} of ${slides.length}: ${slide.label}`}
             aria-hidden={active !== index} inert={active !== index}>
-            <Image src={slide.src} alt={slide.alt} fill sizes="100vw" className={styles.image}
-              preload={index === 0} loading={index === 0 ? undefined : "lazy"} />
+            <BannerImage slide={slide} eager={index === 0} />
           </Link>
         ))}
         <button type="button" className={`${styles.arrow} ${styles.prev}`} aria-label="Previous slide" onClick={() => showSlide(active - 1)}><ChevronLeft size={20} /></button>

@@ -23,5 +23,5 @@
 .dots button[aria-current] span { width: 24px; background: var(--udy-blue); }
 .play { border-left: 1px solid #3586c633; border-radius: 0 50% 50% 0 !important; margin-left: 4px; }
 @media (hover: none) { .arrow { display: none; } }
-@media (max-width: 767px) { .controls { padding-block: 6px; } }
+@media (max-width: 767px) { .viewport { aspect-ratio: 1 / 1; } .controls { padding-block: 6px; } }
 @media (prefers-reduced-motion: reduce) { .slide, .arrow, .dots button span { transition: none; } }

@@ -1,15 +1,57 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { icons } from "@/lib/icons";
 import type { Segment } from "@/data/segments";
-import { ReferenceArtwork } from "./ReferenceArtwork";
-const photos: Record<string, number> = { pediatric: 60, gynecology: 220, "general-healthcare": 379, specialized: 538 };
-const descriptions: Record<string, string> = { pediatric: "Supporting healthy growth for a brighter tomorrow.", gynecology: "Women’s health solutions for every stage of life.", "general-healthcare": "Everyday care for healthier families.", specialized: "Focused therapies for specific needs." };
+import styles from "./HealthcareSegments.module.css";
+
 export function SegmentCard({ segment }: { segment: Segment }) {
-  const Icon = icons[segment.icon];
-  const category = segment.slug === "specialized" ? "all" : segment.slug === "gynecology" ? "womens-healthcare" : segment.slug;
-  return <Link href={`/products?category=${category}`} className="segment-card">
-    <ReferenceArtwork x={photos[segment.slug]} y={658} width={146} height={75} label={`${segment.name} healthcare`} />
-    <div className="segment-content"><span className="feature-icon"><Icon size={24} aria-hidden="true" /></span><div><h3>{segment.name}</h3><p>{descriptions[segment.slug]}</p></div><span className="segment-arrow"><ArrowRight size={17} aria-hidden="true" /></span></div>
-  </Link>;
+  const href = `/products?category=${segment.slug}`;
+
+  return (
+    <Link href={href} className={styles.card} data-division={segment.slug}>
+      <div>
+        {/* Soothing High-Resolution Photography Frame */}
+        <div className={styles.imageFrame}>
+          <Image
+            src={segment.heroImage}
+            alt={`${segment.name} healthcare`}
+            fill
+            sizes="(min-width: 1024px) 600px, 100vw"
+            className={styles.heroImg}
+          />
+          <div className={styles.imageOverlay} aria-hidden="true" />
+          <span className={styles.badgeOverlay}>
+            <span className={styles.badgeDot} aria-hidden="true" />
+            {segment.badge}
+          </span>
+        </div>
+
+        {/* Card Body Content */}
+        <div className={styles.body}>
+          <h3 className={styles.title}>{segment.headline}</h3>
+          <p className={styles.description}>{segment.description}</p>
+
+          {/* Key Brands Tag Cloud */}
+          <div className={styles.brandRow}>
+            <span className={styles.brandLabel}>Key Brands:</span>
+            {segment.brands.map((b) => (
+              <span key={b} className={styles.brandTag}>
+                {b}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Footer CTA */}
+      <div className={styles.footer}>
+        <span className={styles.ctaBtn}>
+          <span>Explore {segment.name}</span>
+          <span className={styles.ctaArrow} aria-hidden="true">
+            <ArrowRight size={15} />
+          </span>
+        </span>
+      </div>
+    </Link>
+  );
 }
