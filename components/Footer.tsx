@@ -56,15 +56,22 @@ export function Footer() {
             Connect With Us
           </h3>
           <p className="text-sm leading-relaxed text-text-secondary">
-            For partnership enquiries and additional information, please
-            contact our team.
+            For partnership enquiries, franchise availability, and corporate details, please get in touch with our team.
           </p>
-          <Link
-            href="/contact"
-            className="mt-3 inline-block text-sm font-semibold text-brand-primary hover:underline"
-          >
-            Contact UDY Healthcare →
-          </Link>
+          <div className="mt-3 flex flex-col gap-2 text-sm font-semibold">
+            <Link
+              href="/enquiry"
+              className="text-brand-primary hover:underline"
+            >
+              Product & Franchise Enquiry →
+            </Link>
+            <Link
+              href="/contact"
+              className="text-text-secondary hover:text-brand-primary transition-colors text-xs"
+            >
+              Registered Office & Contacts →
+            </Link>
+          </div>
         </div>
       </div>
 

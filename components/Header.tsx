@@ -31,7 +31,7 @@ export function Header() {
         </nav>
 
         <div className={styles.actions}>
-          <Button href="/contact" variant="primary" className={styles.cta}>
+          <Button href="/enquiry" variant="primary" className={styles.cta}>
             Enquire Now
             <ArrowRight size={18} aria-hidden="true" />
           </Button>

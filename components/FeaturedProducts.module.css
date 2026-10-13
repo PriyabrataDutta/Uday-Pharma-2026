@@ -1,15 +1,137 @@
-/* Spacious 3-Column Grid for Product Showcase */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 26px;
-  padding: 8px 0 12px;
+/* Carousel Controls & Layout */
+.controlsRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.arrowGroup {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.arrowBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid #cce3f2;
+  background: #ffffff;
+  color: var(--brand-primary);
+  box-shadow: 0 2px 6px #0b3b610c;
+  cursor: pointer;
+  transition: all 200ms ease;
+}
+
+.arrowBtn:hover:not(:disabled) {
+  background: var(--brand-primary);
+  color: #ffffff;
+  border-color: var(--brand-primary);
+  box-shadow: 0 4px 12px #0b3b6122;
+  transform: scale(1.05);
+}
+
+.arrowBtn:disabled,
+.arrowDisabled {
+  opacity: 0.32;
+  cursor: not-allowed;
+  pointer-events: none;
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+.countBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 6px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  background: #e2eff7;
+  color: var(--brand-primary);
+  transition: all 200ms ease;
+}
+
+.tabBtnActive .countBadge {
+  background: #007ec418;
+  color: var(--brand-primary);
+}
+
+/* Carousel Track & Container */
+.carouselContainer {
+  position: relative;
+  width: 100%;
+}
+
+.fadeMask {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 250ms ease;
+}
+
+.fadeMaskLeft {
+  left: 0;
+  background: linear-gradient(to right, #ffffff, transparent);
+}
+
+.fadeMaskRight {
+  right: 0;
+  background: linear-gradient(to left, #ffffff, transparent);
+}
+
+.fadeMask.visible {
+  opacity: 1;
+}
+
+.scrollTrack {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  padding: 8px 4px 20px;
   list-style: none;
+  margin: 0;
+  scrollbar-width: thin;
+  scrollbar-color: #007ec430 transparent;
+}
+
+.scrollTrack::-webkit-scrollbar {
+  height: 6px;
+}
+
+.scrollTrack::-webkit-scrollbar-track {
+  background: #edf5fa;
+  border-radius: 999px;
+}
+
+.scrollTrack::-webkit-scrollbar-thumb {
+  background: #cbdfe9;
+  border-radius: 999px;
+}
+
+.scrollTrack::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-primary);
 }
 
 .item {
+  flex: 0 0 calc((100% - 2 * 24px) / 3);
+  min-width: 280px;
+  scroll-snap-align: start;
   display: flex;
-  min-width: 0;
 }
 
 /* Filter Tabs Styling */
@@ -122,7 +244,7 @@
 /* Product Stage Visual */
 .stage {
   position: relative;
-  height: 220px;
+  height: 230px;
   margin: 10px 10px 0;
   border-radius: 16px;
   background:
@@ -138,7 +260,7 @@
   position: absolute;
   z-index: -1;
   left: 50%;
-  bottom: 28px;
+  bottom: 26px;
   width: 68%;
   height: 18px;
   translate: -50% 0;
@@ -202,7 +324,7 @@
   flex: 1;
   flex-direction: column;
   gap: 8px;
-  padding: 18px 22px 18px;
+  padding: 16px 20px 18px;
 }
 
 .headerRow {
@@ -213,7 +335,7 @@
 }
 
 .name {
-  font-size: 18px;
+  font-size: 17.5px;
   font-weight: 750;
   line-height: 1.25;
   letter-spacing: -0.015em;
@@ -225,8 +347,8 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
-  font-size: 13.5px;
-  line-height: 1.55;
+  font-size: 13px;
+  line-height: 1.5;
   color: #475569;
 }
 
@@ -309,27 +431,37 @@
   box-shadow: 0 4px 12px #0b3b6120;
 }
 
-/* Responsive Media Queries */
+/* Responsive Media Queries for 3-Card Scroll Track */
 @media (max-width: 1023px) {
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
+  .item {
+    flex: 0 0 calc((100% - 18px) / 2); /* 2 cards on tablet */
+    min-width: 240px;
+  }
+  .scrollTrack {
+    gap: 18px;
+  }
+  .stage {
+    height: 205px;
   }
 }
 
 @media (max-width: 639px) {
-  .grid {
-    grid-template-columns: 1fr;
-    gap: 18px;
+  .item {
+    flex: 0 0 84%; /* 1 card visible with preview peek on mobile */
+    min-width: unset;
+  }
+  .scrollTrack {
+    gap: 14px;
+    padding-bottom: 14px;
   }
   .stage {
-    height: 200px;
+    height: 190px;
   }
   .name {
-    font-size: 17px;
+    font-size: 16px;
   }
   .body {
-    padding: 16px 18px 16px;
+    padding: 14px 16px 16px;
   }
 }
 

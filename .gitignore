@@ -23,6 +23,8 @@
 # misc
 .DS_Store
 *.pem
+__pycache__/
+*.pyc
 
 # debug
 npm-debug.log*
@@ -41,4 +43,4 @@ yarn-error.log*
 next-env.d.ts
 
 # local claude settings
-.claude/settings.local.json
+.claude/

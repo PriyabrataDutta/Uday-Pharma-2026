@@ -123,7 +123,7 @@ body {
 }
 html { scroll-behavior: smooth; }
 body { background: #ffffff; }
-body > main, body > footer { width: 100%; max-width: 1280px; margin-inline: auto; background-color: white; }
+body > main, body > footer { width: 100%; }
 .home-page h2 { font-size: clamp(25px,2.2vw,31px); line-height: 1.13; font-weight: 750; letter-spacing: -.035em; }
 .home-page .eyebrow { color: #159ebc; font-size: 12px; letter-spacing: .105em; }
 .home-page p { line-height: 1.48; }

@@ -6,29 +6,40 @@ import { products } from "@/data/products";
 import { company } from "@/data/company";
 
 export const metadata: Metadata = {
-  title: "Products",
+  title: "Products Directory",
   description:
-    "Explore UDY Healthcare's portfolio across pediatric, general healthcare, women's healthcare, nutraceutical and specialized therapeutic segments.",
+    "Explore UDY Healthcare's portfolio across pediatric, gynecology & women's health, general healthcare, and specialized therapeutic segments.",
   alternates: { canonical: "/products" },
 };
 
 export default function ProductsPage() {
+  const pediatricCount = products.filter((p) => p.category === "pediatric").length;
+  const gynecologyCount = products.filter((p) => p.category === "gynecology").length;
+
   return (
     <>
       <PageHero
-        eyebrow="Our Products"
-        title="Our Products"
-        description="Explore UDY Healthcare's portfolio across pediatric, general healthcare, women's healthcare, nutraceutical and specialized therapeutic segments."
+        eyebrow="Product Portfolio"
+        title="Pharmaceutical & Healthcare Portfolio"
+        description="Explore UDY Healthcare's growing product range developed for Pediatric Healthcare, Gynecology & Women's Health, and Specialized Therapeutic Segments."
+        stats={[
+          { label: "Total Formulations", value: `${products.length}+` },
+          { label: "Pediatric Brands", value: `${pediatricCount}` },
+          { label: "Gynecology Brands", value: `${gynecologyCount}` },
+          { label: "Quality Standard", value: "Verified IP" },
+        ]}
       />
 
-      <section className="container-page py-16 lg:py-24">
-        <Suspense>
+      <section className="container-page py-12 lg:py-16">
+        <Suspense fallback={<div className="p-12 text-center text-xs text-slate-400">Loading catalog...</div>}>
           <ProductsExplorer products={products} />
         </Suspense>
 
-        <p className="mx-auto mt-14 max-w-2xl text-center text-xs leading-relaxed text-text-muted">
-          {company.disclaimer}
-        </p>
+        <div className="mx-auto mt-16 max-w-2xl rounded-2xl border border-sky-100 bg-sky-50/50 p-5 text-center">
+          <p className="text-xs leading-relaxed text-slate-500">
+            {company.disclaimer}
+          </p>
+        </div>
       </section>
     </>
   );

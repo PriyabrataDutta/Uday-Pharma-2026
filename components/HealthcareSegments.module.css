@@ -1,10 +1,15 @@
-/* Signature Brand Blue Gradient Section Styling - Compact & Sleek */
 .section {
   position: relative;
-  padding: 64px 0;
+  padding: 80px 0;
   background: linear-gradient(135deg, #072e4a 0%, #005688 45%, #007ec4 85%, #0a9bb4 100%);
   overflow: hidden;
   color: #ffffff;
+}
+
+@media (max-width: 1023px) {
+  .section {
+    padding: 56px 0;
+  }
 }
 
 /* Background Ambient Accents */
@@ -32,14 +37,11 @@
   pointer-events: none;
 }
 
-/* Flex Container Layout for Division Cards (Max Width Constrained) */
 .flexContainer {
   display: flex;
   flex-direction: row;
-  gap: 22px;
+  gap: 24px;
   width: 100%;
-  max-width: 1120px;
-  margin-inline: auto;
 }
 
 @media (max-width: 1023px) {

@@ -1,0 +1,252 @@
+.card {
+  --tone: #007ec4;
+  --tone-soft: #eaf4fb;
+  --tone-mid: #cfe9f6;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #ffffff;
+  border: 1px solid #e1eef6;
+  box-shadow: 0 2px 4px rgba(11, 59, 97, 0.03), 0 8px 24px -10px rgba(11, 59, 97, 0.08);
+  transition: transform 300ms cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 300ms ease, border-color 300ms ease;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.card[data-tone="pediatric"] {
+  --tone: #0a9bb4;
+  --tone-soft: #e5f7f9;
+  --tone-mid: #c8edf2;
+}
+
+.card[data-tone="gynecology"] {
+  --tone: #c73a7c;
+  --tone-soft: #fcebf3;
+  --tone-mid: #f6d3e3;
+}
+
+/* Top Gradient Line on Hover */
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, var(--tone), #4dd3d3);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 350ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: var(--tone-mid);
+  box-shadow: 0 4px 12px rgba(11, 59, 97, 0.05), 0 20px 36px -14px rgba(11, 59, 97, 0.16);
+}
+
+.card:hover::after {
+  transform: scaleX(1);
+}
+
+/* Stage Container */
+.stage {
+  position: relative;
+  height: 200px;
+  margin: 8px 8px 0;
+  border-radius: 14px;
+  background:
+    radial-gradient(130% 90% at 50% 30%, #ffffff 0%, #ffffff 40%, transparent 80%),
+    linear-gradient(180deg, var(--tone-soft), #f6fbfd);
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.podium {
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  bottom: 22px;
+  width: 65%;
+  height: 16px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(11, 59, 97, 0.18), transparent);
+  transition: width 300ms ease, opacity 300ms ease;
+}
+
+.image {
+  object-fit: contain;
+  padding: 20px 14px 16px;
+  mix-blend-mode: multiply;
+  z-index: 1;
+  transition: transform 350ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.card:hover .image {
+  transform: translateY(-4px) scale(1.04);
+}
+
+.card:hover .podium {
+  width: 55%;
+  opacity: 0.75;
+}
+
+/* Category & Form Badges */
+.tag {
+  position: absolute;
+  z-index: 2;
+  top: 10px;
+  left: 10px;
+  padding: 3.5px 9px;
+  border-radius: 999px;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--tone);
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--tone-mid);
+  backdrop-filter: blur(6px);
+}
+
+.formBadge {
+  position: absolute;
+  z-index: 2;
+  top: 10px;
+  right: 10px;
+  padding: 3.5px 9px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 650;
+  color: #334155;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid #e2e8f0;
+  backdrop-filter: blur(6px);
+}
+
+.cardLink {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Card Body */
+.body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 18px 0;
+}
+
+.name {
+  font-size: 16.5px;
+  font-weight: 750;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: #0b2e4c;
+  transition: color 200ms ease;
+}
+
+.card:hover .name {
+  color: var(--tone);
+}
+
+.composition {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #475569;
+}
+
+/* Card Footer */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: auto;
+  padding: 12px 18px 16px;
+  border-top: 1px dashed #e1edf5;
+}
+
+.noteBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--tone);
+  background: var(--tone-soft);
+  border: 1px solid var(--tone-mid);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 170px;
+}
+
+.genericMeta {
+  font-size: 11px;
+  font-weight: 600;
+  color: #94a3b8;
+}
+
+.actionBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--tone);
+  background: var(--tone-soft);
+  border: 1px solid var(--tone-mid);
+  transition: all 220ms ease;
+  flex-shrink: 0;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+}
+
+.actionBtn:hover {
+  color: #ffffff;
+  background: var(--tone);
+  border-color: var(--tone);
+  transform: scale(1.14);
+  box-shadow: 0 4px 12px rgba(11, 59, 97, 0.16);
+}
+
+.card:hover .actionBtn {
+  color: #ffffff;
+  background: var(--tone);
+  border-color: var(--tone);
+  transform: scale(1.06);
+}
+
+.actionBtn:focus-visible {
+  outline: 2px solid var(--tone);
+  outline-offset: 2px;
+}
+
+@media (max-width: 639px) {
+  .stage {
+    height: 175px;
+  }
+  .name {
+    font-size: 15.5px;
+  }
+  .body {
+    padding: 14px 14px 14px;
+  }
+}

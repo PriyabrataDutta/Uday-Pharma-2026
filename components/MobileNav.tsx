@@ -105,7 +105,7 @@ export function MobileNav() {
             <NavLinks variant="mobile" onNavigate={close} />
           </nav>
 
-          <Button href="/contact" variant="primary" className={`${styles.cta} ${styles.drawerCta}`} onClick={close}>
+          <Button href="/enquiry" variant="primary" className={`${styles.cta} ${styles.drawerCta}`} onClick={close}>
             Enquire Now
             <ArrowRight size={18} aria-hidden="true" />
           </Button>

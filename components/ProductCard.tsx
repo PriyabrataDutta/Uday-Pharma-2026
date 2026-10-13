@@ -1,28 +1,80 @@
-import Image from "next/image";
-import type { Product } from "@/data/products";
+"use client";
 
-export function ProductCard({ product }: { product: Product }) {
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+import { productCategories, type Product } from "@/data/products";
+import styles from "./ProductCard.module.css";
+
+const categoryLabel = (product: Product) =>
+  productCategories.find((c) => c.slug === product.category)?.label;
+
+export function ProductCard({
+  product,
+  onQuickView,
+}: {
+  product: Product;
+  onQuickView?: (product: Product) => void;
+}) {
+  const label = categoryLabel(product);
+  const href = `/products/${product.slug}`;
+
+  const handleArrowClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onQuickView?.(product);
+  };
+
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-white shadow-card transition-all duration-200 hover:-translate-y-1 hover:shadow-card-hover">
-      <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-background-soft to-surface">
-        <Image
-          src={`/images/products/udy-healthcare-${product.slug}.webp`}
-          alt={product.name}
-          fill
-          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-          className="object-contain p-4 transition-transform duration-200 group-hover:scale-[1.03]"
-        />
-      </div>
-      <div className="flex flex-1 flex-col gap-1.5 p-5">
-        <h3 className="text-base font-semibold text-text-primary">{product.name}</h3>
-        {product.composition && (
-          <p className="text-sm leading-snug text-text-secondary">{product.composition}</p>
-        )}
-        {(product.form || product.note) && (
-          <p className="mt-auto pt-1 text-xs font-medium text-text-muted">
-            {[product.form, product.note].filter(Boolean).join(" · ")}
-          </p>
-        )}
+    <article className="h-full">
+      <div
+        className={styles.card}
+        data-tone={product.category ?? "pediatric"}
+      >
+        <Link
+          href={href}
+          className={styles.cardLink}
+          aria-label={`${product.name} product details`}
+        >
+          <div className={styles.stage}>
+            {label && <span className={styles.tag}>{label}</span>}
+            {product.form && <span className={styles.formBadge}>{product.form}</span>}
+            <span className={styles.podium} aria-hidden="true" />
+            <Image
+              src={`/images/products/udy-healthcare-${product.slug}.webp`}
+              alt={`${product.name} packaging`}
+              fill
+              sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+              className={styles.image}
+            />
+          </div>
+          <div className={styles.body}>
+            <h3 className={styles.name}>{product.name}</h3>
+            
+            <p className={styles.composition}>
+              {product.composition || "Formulated according to verified pharmaceutical standards."}
+            </p>
+          </div>
+        </Link>
+
+        <div className={styles.footer}>
+          {product.note ? (
+            <span className={styles.noteBadge} title={product.note}>
+              {product.note}
+            </span>
+          ) : (
+            <span className={styles.genericMeta}>Verified Pack</span>
+          )}
+          <button
+            type="button"
+            onClick={handleArrowClick}
+            className={styles.actionBtn}
+            aria-label={`View visual aid detailing for ${product.name}`}
+            title="View Visual Aid Detailing"
+          >
+            <ArrowUpRight size={16} />
+          </button>
+        </div>
       </div>
     </article>
   );

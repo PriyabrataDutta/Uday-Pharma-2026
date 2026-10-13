@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { useSearchParams } from "next/navigation";
 import { Loader2, CheckCircle2 } from "lucide-react";
 import { Button } from "./Button";
 
@@ -23,15 +24,37 @@ const initialState: FormState = {
 const fields: { name: keyof FormState; label: string; type: string; textarea?: boolean }[] = [
   { name: "fullName", label: "Full Name", type: "text" },
   { name: "phone", label: "Phone Number", type: "tel" },
-  { name: "email", label: "Email", type: "email" },
-  { name: "subject", label: "Subject", type: "text" },
-  { name: "message", label: "Message", type: "text", textarea: true },
+  { name: "email", label: "Email Address", type: "email" },
+  { name: "subject", label: "Subject / Product Enquiry", type: "text" },
+  { name: "message", label: "Message Details", type: "text", textarea: true },
 ];
 
 export function ContactForm() {
-  const [values, setValues] = useState<FormState>(initialState);
+  const searchParams = useSearchParams();
+  const productParam = searchParams.get("product");
+  const [prevProductParam, setPrevProductParam] = useState(productParam);
+  const [values, setValues] = useState<FormState>(() => ({
+    ...initialState,
+    subject: productParam ? `Enquiry regarding ${productParam}` : "",
+    message: productParam
+      ? `Hello UDY Healthcare team, I would like to request more information regarding ${productParam}.`
+      : "",
+  }));
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+  if (productParam !== prevProductParam) {
+    setPrevProductParam(productParam);
+    if (productParam) {
+      setValues((v) => ({
+        ...v,
+        subject: `Enquiry regarding ${productParam}`,
+        message:
+          v.message ||
+          `Hello UDY Healthcare team, I would like to request more information regarding ${productParam}.`,
+      }));
+    }
+  }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -68,14 +91,14 @@ export function ContactForm() {
     return (
       <div
         role="status"
-        className="flex flex-col items-center gap-3 rounded-2xl border border-border bg-surface p-10 text-center"
+        className="flex flex-col items-center gap-3 rounded-2xl border border-teal-100 bg-teal-50/50 p-10 text-center"
       >
-        <CheckCircle2 aria-hidden="true" size={40} className="text-brand-secondary" />
-        <h3 className="text-lg font-semibold text-text-primary">Enquiry Submitted</h3>
-        <p className="max-w-sm text-sm text-text-secondary">
-          Thank you for reaching out to UDY Healthcare. Our team will get back to you soon.
+        <CheckCircle2 aria-hidden="true" size={44} className="text-teal-600" />
+        <h3 className="text-xl font-bold text-slate-900">Enquiry Submitted</h3>
+        <p className="max-w-sm text-sm text-slate-600">
+          Thank you for reaching out to UDY Healthcare Private Limited. Our team will review your enquiry and respond promptly.
         </p>
-        <Button variant="secondary" onClick={() => setStatus("idle")}>
+        <Button variant="secondary" onClick={() => setStatus("idle")} className="mt-2">
           Submit another enquiry
         </Button>
       </div>
@@ -91,7 +114,7 @@ export function ContactForm() {
 
         return (
           <div key={field.name} className="flex flex-col gap-1.5">
-            <label htmlFor={inputId} className="text-sm font-medium text-text-primary">
+            <label htmlFor={inputId} className="text-xs font-bold uppercase tracking-wider text-slate-700">
               {field.label}
             </label>
             {field.textarea ? (
@@ -103,7 +126,7 @@ export function ContactForm() {
                 onChange={(e) => setValues((v) => ({ ...v, [field.name]: e.target.value }))}
                 aria-invalid={Boolean(error)}
                 aria-describedby={error ? errorId : undefined}
-                className="min-h-32 resize-y rounded-xl border border-border bg-white px-4 py-3 text-sm text-text-primary outline-none focus-visible:border-brand-primary focus-visible:ring-2 focus-visible:ring-brand-primary/20"
+                className="min-h-32 resize-y rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 text-sm text-slate-900 outline-none transition-all focus:border-sky-500 focus:bg-white focus:ring-2 focus:ring-sky-500/20"
               />
             ) : (
               <input
@@ -114,7 +137,7 @@ export function ContactForm() {
                 onChange={(e) => setValues((v) => ({ ...v, [field.name]: e.target.value }))}
                 aria-invalid={Boolean(error)}
                 aria-describedby={error ? errorId : undefined}
-                className="min-h-11 rounded-xl border border-border bg-white px-4 py-3 text-sm text-text-primary outline-none focus-visible:border-brand-primary focus-visible:ring-2 focus-visible:ring-brand-primary/20"
+                className="min-h-11 rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 text-sm text-slate-900 outline-none transition-all focus:border-sky-500 focus:bg-white focus:ring-2 focus:ring-sky-500/20"
               />
             )}
             {error && (
@@ -128,17 +151,17 @@ export function ContactForm() {
 
       {status === "error" && Object.keys(errors).length === 0 && (
         <p role="alert" className="text-sm font-medium text-red-600">
-          Something went wrong. Please try again.
+          Something went wrong submitting your form. Please try again.
         </p>
       )}
 
-      <Button type="submit" variant="primary" disabled={status === "loading"} className="self-start">
+      <Button type="submit" variant="primary" disabled={status === "loading"} className="self-start mt-2">
         {status === "loading" ? (
           <>
             <Loader2 aria-hidden="true" size={16} className="animate-spin" /> Submitting…
           </>
         ) : (
-          "Submit Enquiry"
+          "Submit Corporate Enquiry"
         )}
       </Button>
     </form>
