@@ -68,7 +68,7 @@ function ProductModalInner({
       onClick={onClose}
     >
       <div
-        className="relative flex w-full max-w-5xl max-h-[92vh] flex-col overflow-hidden rounded-3xl bg-white shadow-2xl transition-transform duration-300 animate-in zoom-in-95 lg:flex-row lg:items-stretch border border-slate-200"
+        className="relative flex w-full max-w-5xl max-h-[92vh] flex-col overflow-y-auto lg:overflow-hidden rounded-3xl bg-white shadow-2xl transition-transform duration-300 animate-in zoom-in-95 lg:flex-row lg:items-stretch border border-slate-200"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
@@ -153,7 +153,7 @@ function ProductModalInner({
 
           {/* Interactive Image Viewport */}
           <div
-            className={`relative flex-1 overflow-auto p-4 sm:p-6 flex items-center justify-center min-h-[340px] sm:min-h-[460px] lg:min-h-[560px] ${
+            className={`relative flex-1 overflow-auto p-4 sm:p-6 flex items-center justify-center min-h-[280px] sm:min-h-[420px] lg:min-h-[520px] ${
               isZoomed ? "cursor-zoom-out" : activeTab === "visual-aid" && !hasVisualAidError ? "cursor-zoom-in" : ""
             }`}
             onClick={() => {
@@ -167,7 +167,7 @@ function ProductModalInner({
                 className={`relative transition-all duration-300 flex items-center justify-center ${
                   isZoomed
                     ? "w-[1200px] max-w-none py-4"
-                    : "w-full h-full max-h-[500px] lg:max-h-[600px]"
+                    : "w-full h-[320px] sm:h-[440px] lg:h-[520px]"
                 }`}
               >
                 {/* Visual Aid Detailing Image */}
@@ -194,7 +194,7 @@ function ProductModalInner({
               </div>
             ) : (
               /* Packshot View (or fallback if visual aid missing) */
-              <div className="relative flex aspect-square w-full max-w-sm items-center justify-center p-6">
+              <div className="relative flex aspect-square w-full max-w-[280px] sm:max-w-sm items-center justify-center p-4 sm:p-6">
                 <div
                   className="absolute bottom-6 left-1/2 h-6 w-3/4 -translate-x-1/2 rounded-full bg-sky-900/15 blur-lg"
                   aria-hidden="true"
