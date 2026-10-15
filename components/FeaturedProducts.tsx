@@ -129,8 +129,11 @@ export function FeaturedProducts() {
       stride = el.clientWidth / 6;
     }
 
-    // Scroll by exactly 3 products at a time
-    const distance = stride * 3;
+    // Scroll by visible cards: 3 on desktop, 2 on tablet, 1 on mobile
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
+    const isTablet = typeof window !== "undefined" && window.innerWidth < 1024;
+    const cardsPerScroll = isMobile ? 1 : isTablet ? 2 : 3;
+    const distance = stride * cardsPerScroll;
 
     el.scrollBy({
       left: direction === "left" ? -distance : distance,

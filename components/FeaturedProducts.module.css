@@ -1,13 +1,13 @@
 /* Carousel Controls & Layout */
 .controlsRow {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 14px;
 }
 
 .arrowGroup {
+  flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -136,10 +136,13 @@
 
 /* Filter Tabs Styling */
 .tabsWrapper {
+  flex: 1;
+  min-width: 0;
   display: flex;
   overflow-x: auto;
   padding-bottom: 4px;
   scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
 .tabsWrapper::-webkit-scrollbar {
   display: none;
@@ -446,6 +449,22 @@
 }
 
 @media (max-width: 639px) {
+  .controlsRow {
+    gap: 10px;
+  }
+  .arrowBtn {
+    width: 36px;
+    height: 36px;
+  }
+  .tabBtn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  .countBadge {
+    font-size: 10px;
+    padding: 1px 5px;
+    margin-left: 4px;
+  }
   .item {
     flex: 0 0 84%; /* 1 card visible with preview peek on mobile */
     min-width: unset;
